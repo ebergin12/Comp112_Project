@@ -1,0 +1,72 @@
+---
+title: 'Final Project'
+author: "Ty Benz, Emily Bergin, Mackenzie Clarke"
+output: 
+  html_document:
+    keep_md: TRUE
+    toc: TRUE
+    toc_float: TRUE
+    df_print: paged
+    code_download: true
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, error=TRUE, message=FALSE, warning=FALSE)
+```
+
+```{r libraries}
+library(tidyverse)     # for data cleaning and plotting
+library(lubridate)     # for date manipulation
+library(openintro)     # for the abbr2state() function
+library(gplots)        # for col2hex() function
+library(RColorBrewer)  # for color palettes
+library(sf)            # for working with spatial data
+library(ggthemes)      # for more themes (including theme_map())
+library(plotly)        # for the ggplotly() - basic interactivity
+library(gganimate)     # for adding animation layers to ggplots
+library(transformr)    # for "tweening" (gganimate)
+library(gifski)        # need the library for creating gifs but don't need to load each time
+library(shiny)         # for creating interactive apps
+library(ggnewscale)
+library(readr)
+theme_set(theme_minimal())
+```
+
+```{r data}
+`2016FullPitchData` <- read_csv("2016FullPitchData.csv", 
+    col_types = cols(player_id = col_number(), 
+        year = col_number(), player_age = col_number(), 
+        p_game = col_number(), p_formatted_ip = col_number(), 
+        p_strikeout = col_number(), p_k_percent = col_number(), 
+        p_era = col_number(), n = col_number(), 
+        n_ff_formatted = col_number(), ff_avg_speed = col_number(), 
+        ff_avg_spin = col_number(), ff_avg_break_x = col_number(), 
+        ff_avg_break_z = col_number(), ff_avg_break = col_number(), 
+        ff_range_speed = col_number(), n_sl_formatted = col_number(), 
+        sl_avg_speed = col_number(), sl_avg_spin = col_number(), 
+        sl_avg_break_x = col_number(), sl_avg_break_z = col_number(), 
+        sl_avg_break = col_number(), sl_range_speed = col_number(), 
+        n_ch_formatted = col_number(), ch_avg_speed = col_number(), 
+        ch_avg_spin = col_number(), ch_avg_break_x = col_number(), 
+        ch_avg_break_z = col_number(), ch_avg_break = col_number(), 
+        ch_range_speed = col_number(), n_cukc_formatted = col_number(), 
+        cu_avg_speed = col_number(), cu_avg_spin = col_number(), 
+        cu_avg_break_x = col_number(), cu_avg_break_z = col_number(), 
+        cu_avg_break = col_number(), cu_range_speed = col_number(), 
+        n_sift_formatted = col_number(), 
+        si_avg_speed = col_number(), si_avg_spin = col_number(), 
+        si_avg_break_x = col_number(), si_avg_break_z = col_number(), 
+        si_avg_break = col_number(), si_range_speed = col_number(), 
+        n_fc_formatted = col_number(), fc_avg_speed = col_number(), 
+        fc_avg_spin = col_number(), fc_avg_break_x = col_number(),
+        fc_avg_break_z = col_number(), fc_avg_break = col_number(),
+        fc_range_speed = col_number(), n_fs_formatted = col_number(),
+        fs_avg_speed = col_number(), fs_avg_break_x = col_number(),
+        fs_avg_break_z = col_number(), fs_avg_break = col_number(),
+        fs_range_speed = col_number(), n_kn_formatted = col_number(),
+        kn_avg_speed = col_number(), kn_avg_break_x = col_number(),
+        kn_avg_break_z = col_number(), kn_avg_break = col_number(),
+        kn_range_speed = col_number()), skip = 1)
+```
+
