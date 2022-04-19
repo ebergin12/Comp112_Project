@@ -1,0 +1,25 @@
+---
+title: "Emily's Plots"
+author: "Emily Bergin"
+date: "4/19/2022"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(lubridate)
+library(ggthemes)
+```
+
+```{r}
+FullPitchData %>%
+  ggplot() %>%
+  geom_col(x = pitch_freqeuncy, y = pitch_type) +
+  geom_text(aes(label = pitch_type), vjust = -0.5, size = 2, color = "black")
+```
+
