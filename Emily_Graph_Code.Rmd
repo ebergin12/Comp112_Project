@@ -85,15 +85,63 @@ SliderData2016 <- Data2016 %>%
          range_speed = sl_range_speed) %>%
   select(-contains("sl"))
 
-TidyPitchData <- bind_rows(FFData2016, SliderData2016)
+ChangeData2016 <- Data2016 %>%
+  select(c(1:12), contains("ch")) %>%
+  add_column(Pitch_Type = "Changeup") %>%
+  mutate(pitch_frequency = n_ch_formatted, 
+         avg_speed = ch_avg_speed, 
+         avg_spin = ch_avg_spin, 
+         avg_break_x = ch_avg_break_x, 
+         avg_break_z = ch_avg_break_z, 
+         avg_break = ch_avg_break, 
+         range_speed = ch_range_speed) %>%
+  select(-c(13:19))
+
+CurveData2016 <- Data2016 %>%
+  select(c(1:12), contains("cu")) %>%
+  add_column(Pitch_Type = "Curve") %>%
+  mutate(pitch_frequency = n_cukc_formatted, 
+         avg_speed = cu_avg_speed, 
+         avg_spin = cu_avg_spin, 
+         avg_break_x = cu_avg_break_x, 
+         avg_break_z = cu_avg_break_z, 
+         avg_break = cu_avg_break, 
+         range_speed = cu_range_speed) %>%
+  select(-contains("cu"))
+
+SinkerData2016 <- Data2016 %>%
+  select(c(1:12), contains("si")) %>%
+  add_column(Pitch_Type = "Sinker") %>%
+  mutate(pitch_frequency = n_sift_formatted, 
+         avg_speed = si_avg_speed, 
+         avg_spin = si_avg_spin, 
+         avg_break_x = si_avg_break_x, 
+         avg_break_z = si_avg_break_z, 
+         avg_break = si_avg_break, 
+         range_speed = si_range_speed) %>%
+  select(-contains("si"))
+
+CutterData2016 <- Data2016 %>%
+  select(c(1:12), contains("fc")) %>%
+  add_column(Pitch_Type = "Cutter") %>%
+  mutate(pitch_frequency = n_fc_formatted, 
+         avg_speed = fc_avg_speed, 
+         avg_spin = fc_avg_spin, 
+         avg_break_x = fc_avg_break_x, 
+         avg_break_z = fc_avg_break_z, 
+         avg_break = fc_avg_break, 
+         range_speed = fc_range_speed) %>%
+  select(-contains("fc"))
+
+TidyPitchData <- bind_rows(FFData2016, SliderData2016, ChangeData2016, CurveData2016, SinkerData2016, CutterData2016)
 ```
 
 
 ```{r}
-Data2016 %>%
-  ggplot() %>%
-  geom_col(x = pitch_freqeuncy, y = pitch_type) +
-  geom_text(aes(label = pitch_type), vjust = -0.5, size = 2, color = "black")
+TidyPitchData %>%
+  ggplot(aes(x = pitch_frequency, y = Pitch_Type)) +
+  geom_col() +
+  geom_text(aes(label = Pitch_Type), vjust = -0.5, size = 2, color = "black")
 ```
 
 
