@@ -16,6 +16,8 @@ library(dplyr)
 library(lubridate)
 library(ggthemes)
 library(readr)
+library(geomtextpath)
+library(patchwork)
 ```
 
 ```{r}
@@ -235,7 +237,7 @@ FinalData <- rbind(Data2016, Data2017, Data2018, Data2019, Data2020, Data2021)
 ```{r}
 FFData <- FinalData %>%
   select(c(1:12), contains("ff")) %>%
-  add_column(Pitch_Type = "FourSeam") %>%
+  add_column(Pitch_Type = "Four-Seam Fastball") %>%
   mutate(pitch_frequency = n_ff_formatted, 
          avg_speed = ff_avg_speed, 
          avg_spin = ff_avg_spin, 
@@ -271,7 +273,7 @@ ChangeData <- FinalData %>%
 
 CurveData <- FinalData %>%
   select(c(1:12), contains("cu")) %>%
-  add_column(Pitch_Type = "Curve") %>%
+  add_column(Pitch_Type = "Curveball") %>%
   mutate(pitch_frequency = n_cukc_formatted, 
          avg_speed = cu_avg_speed, 
          avg_spin = cu_avg_spin, 
@@ -319,7 +321,7 @@ SplitterData <- FinalData %>%
 
 KnuckleData <- FinalData %>%
   select(c(1:12), contains("kn")) %>%
-  add_column(Pitch_Type = "Knuckle") %>%
+  add_column(Pitch_Type = "Knuckleball") %>%
   mutate(pitch_frequency = n_kn_formatted, 
          avg_speed = kn_avg_speed, 
          avg_spin = kn_avg_spin, 
@@ -333,17 +335,49 @@ TidyPitchData <- bind_rows(FFData, SliderData, ChangeData, CurveData, SinkerData
 ```
 
 
-```{r, fig.width=25, fig.height=15}
+```{r}
 
-TidyPitchData %>%
+g1 <- TidyPitchData %>%
+  na.omit() %>%
+  mutate(pitch_percent = str_c(pitch_frequency, "%")) %>%
   filter(last_name == "Greinke", year == 2019) %>%
-  ggplot(aes(x = pitch_frequency, y = Pitch_Type)) +
+  ggplot(aes(x = pitch_frequency, y = fct_reorder(Pitch_Type, pitch_frequency, mean, .desc=FALSE), fill = Pitch_Type)) +
   geom_col() +
-  geom_text(aes(label = Pitch_Type), hjust = -0.5, size = 8, color = "black") +
+  geom_text(aes(label = str_c(pitch_percent, Pitch_Type, sep = "\n")), 
+            hjust = -0.1, 
+            size = 3, 
+            color = "black") + 
   labs(title = "Zack Greinke", 
        x = "Pitch Frequency", 
        y = "Pitch Type") + 
-  theme(axis.text.y = element_blank())
+  scale_x_continuous(expand = expansion(mult = c(0, .65))) + 
+  theme_classic() + 
+  theme(axis.text.y = element_blank(), legend.position = "none") 
+```
+
+```{r}
+g2 <- TidyPitchData %>%
+  na.omit() %>%
+  mutate(max_speed = avg_speed + 0.5*(range_speed),
+         min_speed = avg_speed - 0.5*(range_speed)) %>%
+  mutate(pitch_percent = str_c(pitch_frequency, "%")) %>%
+  filter(last_name == "Greinke", year == 2019) %>%
+  ggplot() +
+  geom_linerange(aes(y = Pitch_Type, xmin = min_speed, xmax = max_speed, color = avg_speed), size=5) + 
+  geom_point(aes(x = avg_speed, y = Pitch_Type), size=2, shape=21, fill="white") + 
+  theme_classic() + 
+  theme(axis.text.y = element_blank(), legend.position = "bottom") 
+```
+
+```{r}
+patchwork = g2 + g1
+
+# Remove title from second subplot
+patchwork[[2]] = patchwork[[2]] + theme(axis.text.y = element_blank(),
+                                        axis.ticks.y = element_blank(),
+                                        axis.title.y = element_blank() )
+
+patchwork
 ```
 
 
