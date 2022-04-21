@@ -13,11 +13,315 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(lubridate)
 library(ggthemes)
+library(readr)
 ```
 
 
 
 ```{r}
+Data2016 <- read_csv("2016FullPitchData.csv", 
+    col_types = cols(player_id = col_number(), 
+        year = col_number(), player_age = col_number(), 
+        p_game = col_number(), p_formatted_ip = col_number(), 
+        p_strikeout = col_number(), p_k_percent = col_number(), 
+        p_era = col_number(), n = col_number(), 
+        n_ff_formatted = col_number(), ff_avg_speed = col_number(), 
+        ff_avg_spin = col_number(), ff_avg_break_x = col_number(), 
+        ff_avg_break_z = col_number(), ff_avg_break = col_number(), 
+        ff_range_speed = col_number(), n_sl_formatted = col_number(), 
+        sl_avg_speed = col_number(), sl_avg_spin = col_number(), 
+        sl_avg_break_x = col_number(), sl_avg_break_z = col_number(), 
+        sl_avg_break = col_number(), sl_range_speed = col_number(), 
+        n_ch_formatted = col_number(), ch_avg_speed = col_number(), 
+        ch_avg_spin = col_number(), ch_avg_break_x = col_number(), 
+        ch_avg_break_z = col_number(), ch_avg_break = col_number(), 
+        ch_range_speed = col_number(), n_cukc_formatted = col_number(), 
+        cu_avg_speed = col_number(), cu_avg_spin = col_number(), 
+        cu_avg_break_x = col_number(), cu_avg_break_z = col_number(), 
+        cu_avg_break = col_number(), cu_range_speed = col_number(), 
+        n_sift_formatted = col_number(), 
+        si_avg_speed = col_number(), si_avg_spin = col_number(), 
+        si_avg_break_x = col_number(), si_avg_break_z = col_number(), 
+        si_avg_break = col_number(), si_range_speed = col_number(), 
+        n_fc_formatted = col_number(), fc_avg_speed = col_number(), 
+        fc_avg_spin = col_number(), fc_avg_break_x = col_number(),
+        fc_avg_break_z = col_number(), fc_avg_break = col_number(),
+        fc_range_speed = col_number(), n_fs_formatted = col_number(),
+        fs_avg_speed = col_number(), fs_avg_break_x = col_number(),
+        fs_avg_break_z = col_number(), fs_avg_break = col_number(),
+        fs_range_speed = col_number(), n_kn_formatted = col_number(),
+        kn_avg_speed = col_number(), kn_avg_break_x = col_number(),
+        kn_avg_break_z = col_number(), kn_avg_break = col_number(),
+        kn_range_speed = col_number(), `...69` = col_skip()), skip = 1, na = "0")
 
+Data2017 <- read_csv("2017FullPitchData.csv", 
+    col_types = cols(player_id = col_number(), 
+        year = col_number(), player_age = col_number(), 
+        p_game = col_number(), p_formatted_ip = col_number(), 
+        p_strikeout = col_number(), p_k_percent = col_number(), 
+        p_era = col_number(), n = col_number(), 
+        n_ff_formatted = col_number(), ff_avg_speed = col_number(), 
+        ff_avg_spin = col_number(), ff_avg_break_x = col_number(), 
+        ff_avg_break_z = col_number(), ff_avg_break = col_number(), 
+        ff_range_speed = col_number(), n_sl_formatted = col_number(), 
+        sl_avg_speed = col_number(), sl_avg_spin = col_number(), 
+        sl_avg_break_x = col_number(), sl_avg_break_z = col_number(), 
+        sl_avg_break = col_number(), sl_range_speed = col_number(), 
+        n_ch_formatted = col_number(), ch_avg_speed = col_number(), 
+        ch_avg_spin = col_number(), ch_avg_break_x = col_number(), 
+        ch_avg_break_z = col_number(), ch_avg_break = col_number(), 
+        ch_range_speed = col_number(), n_cukc_formatted = col_number(), 
+        cu_avg_speed = col_number(), cu_avg_spin = col_number(), 
+        cu_avg_break_x = col_number(), cu_avg_break_z = col_number(), 
+        cu_avg_break = col_number(), cu_range_speed = col_number(), 
+        n_sift_formatted = col_number(), 
+        si_avg_speed = col_number(), si_avg_spin = col_number(), 
+        si_avg_break_x = col_number(), si_avg_break_z = col_number(), 
+        si_avg_break = col_number(), si_range_speed = col_number(), 
+        n_fc_formatted = col_number(), fc_avg_speed = col_number(), 
+        fc_avg_spin = col_number(), fc_avg_break_x = col_number(),
+        fc_avg_break_z = col_number(), fc_avg_break = col_number(),
+        fc_range_speed = col_number(), n_fs_formatted = col_number(),
+        fs_avg_speed = col_number(), fs_avg_break_x = col_number(),
+        fs_avg_break_z = col_number(), fs_avg_break = col_number(),
+        fs_range_speed = col_number(), n_kn_formatted = col_number(),
+        kn_avg_speed = col_number(), kn_avg_break_x = col_number(),
+        kn_avg_break_z = col_number(), kn_avg_break = col_number(),
+        kn_range_speed = col_number(), `...69` = col_skip()), skip = 1, na = "0")
+
+Data2018 <- read_csv("2018FullPitchData.csv", 
+    col_types = cols(player_id = col_number(), 
+        year = col_number(), player_age = col_number(), 
+        p_game = col_number(), p_formatted_ip = col_number(), 
+        p_strikeout = col_number(), p_k_percent = col_number(), 
+        p_era = col_number(), n = col_number(), 
+        n_ff_formatted = col_number(), ff_avg_speed = col_number(), 
+        ff_avg_spin = col_number(), ff_avg_break_x = col_number(), 
+        ff_avg_break_z = col_number(), ff_avg_break = col_number(), 
+        ff_range_speed = col_number(), n_sl_formatted = col_number(), 
+        sl_avg_speed = col_number(), sl_avg_spin = col_number(), 
+        sl_avg_break_x = col_number(), sl_avg_break_z = col_number(), 
+        sl_avg_break = col_number(), sl_range_speed = col_number(), 
+        n_ch_formatted = col_number(), ch_avg_speed = col_number(), 
+        ch_avg_spin = col_number(), ch_avg_break_x = col_number(), 
+        ch_avg_break_z = col_number(), ch_avg_break = col_number(), 
+        ch_range_speed = col_number(), n_cukc_formatted = col_number(), 
+        cu_avg_speed = col_number(), cu_avg_spin = col_number(), 
+        cu_avg_break_x = col_number(), cu_avg_break_z = col_number(), 
+        cu_avg_break = col_number(), cu_range_speed = col_number(), 
+        n_sift_formatted = col_number(), 
+        si_avg_speed = col_number(), si_avg_spin = col_number(), 
+        si_avg_break_x = col_number(), si_avg_break_z = col_number(), 
+        si_avg_break = col_number(), si_range_speed = col_number(), 
+        n_fc_formatted = col_number(), fc_avg_speed = col_number(), 
+        fc_avg_spin = col_number(), fc_avg_break_x = col_number(),
+        fc_avg_break_z = col_number(), fc_avg_break = col_number(),
+        fc_range_speed = col_number(), n_fs_formatted = col_number(),
+        fs_avg_speed = col_number(), fs_avg_break_x = col_number(),
+        fs_avg_break_z = col_number(), fs_avg_break = col_number(),
+        fs_range_speed = col_number(), n_kn_formatted = col_number(),
+        kn_avg_speed = col_number(), kn_avg_break_x = col_number(),
+        kn_avg_break_z = col_number(), kn_avg_break = col_number(),
+        kn_range_speed = col_number(), `...69` = col_skip()), skip = 1, na = "0")
+
+Data2019 <- read_csv("2019FullPitchData.csv", 
+    col_types = cols(player_id = col_number(), 
+        year = col_number(), player_age = col_number(), 
+        p_game = col_number(), p_formatted_ip = col_number(), 
+        p_strikeout = col_number(), p_k_percent = col_number(), 
+        p_era = col_number(), n = col_number(), 
+        n_ff_formatted = col_number(), ff_avg_speed = col_number(), 
+        ff_avg_spin = col_number(), ff_avg_break_x = col_number(), 
+        ff_avg_break_z = col_number(), ff_avg_break = col_number(), 
+        ff_range_speed = col_number(), n_sl_formatted = col_number(), 
+        sl_avg_speed = col_number(), sl_avg_spin = col_number(), 
+        sl_avg_break_x = col_number(), sl_avg_break_z = col_number(), 
+        sl_avg_break = col_number(), sl_range_speed = col_number(), 
+        n_ch_formatted = col_number(), ch_avg_speed = col_number(), 
+        ch_avg_spin = col_number(), ch_avg_break_x = col_number(), 
+        ch_avg_break_z = col_number(), ch_avg_break = col_number(), 
+        ch_range_speed = col_number(), n_cukc_formatted = col_number(), 
+        cu_avg_speed = col_number(), cu_avg_spin = col_number(), 
+        cu_avg_break_x = col_number(), cu_avg_break_z = col_number(), 
+        cu_avg_break = col_number(), cu_range_speed = col_number(), 
+        n_sift_formatted = col_number(), 
+        si_avg_speed = col_number(), si_avg_spin = col_number(), 
+        si_avg_break_x = col_number(), si_avg_break_z = col_number(), 
+        si_avg_break = col_number(), si_range_speed = col_number(), 
+        n_fc_formatted = col_number(), fc_avg_speed = col_number(), 
+        fc_avg_spin = col_number(), fc_avg_break_x = col_number(),
+        fc_avg_break_z = col_number(), fc_avg_break = col_number(),
+        fc_range_speed = col_number(), n_fs_formatted = col_number(),
+        fs_avg_speed = col_number(), fs_avg_break_x = col_number(),
+        fs_avg_break_z = col_number(), fs_avg_break = col_number(),
+        fs_range_speed = col_number(), n_kn_formatted = col_number(),
+        kn_avg_speed = col_number(), kn_avg_break_x = col_number(),
+        kn_avg_break_z = col_number(), kn_avg_break = col_number(),
+        kn_range_speed = col_number(), `...69` = col_skip()), skip = 1, na = "0")
+
+Data2020 <- read_csv("2020FullPitchData.csv", 
+    col_types = cols(player_id = col_number(), 
+        year = col_number(), player_age = col_number(), 
+        p_game = col_number(), p_formatted_ip = col_number(), 
+        p_strikeout = col_number(), p_k_percent = col_number(), 
+        p_era = col_number(), n = col_number(), 
+        n_ff_formatted = col_number(), ff_avg_speed = col_number(), 
+        ff_avg_spin = col_number(), ff_avg_break_x = col_number(), 
+        ff_avg_break_z = col_number(), ff_avg_break = col_number(), 
+        ff_range_speed = col_number(), n_sl_formatted = col_number(), 
+        sl_avg_speed = col_number(), sl_avg_spin = col_number(), 
+        sl_avg_break_x = col_number(), sl_avg_break_z = col_number(), 
+        sl_avg_break = col_number(), sl_range_speed = col_number(), 
+        n_ch_formatted = col_number(), ch_avg_speed = col_number(), 
+        ch_avg_spin = col_number(), ch_avg_break_x = col_number(), 
+        ch_avg_break_z = col_number(), ch_avg_break = col_number(), 
+        ch_range_speed = col_number(), n_cukc_formatted = col_number(), 
+        cu_avg_speed = col_number(), cu_avg_spin = col_number(), 
+        cu_avg_break_x = col_number(), cu_avg_break_z = col_number(), 
+        cu_avg_break = col_number(), cu_range_speed = col_number(), 
+        n_sift_formatted = col_number(), 
+        si_avg_speed = col_number(), si_avg_spin = col_number(), 
+        si_avg_break_x = col_number(), si_avg_break_z = col_number(), 
+        si_avg_break = col_number(), si_range_speed = col_number(), 
+        n_fc_formatted = col_number(), fc_avg_speed = col_number(), 
+        fc_avg_spin = col_number(), fc_avg_break_x = col_number(),
+        fc_avg_break_z = col_number(), fc_avg_break = col_number(),
+        fc_range_speed = col_number(), n_fs_formatted = col_number(),
+        fs_avg_speed = col_number(), fs_avg_break_x = col_number(),
+        fs_avg_break_z = col_number(), fs_avg_break = col_number(),
+        fs_range_speed = col_number(), n_kn_formatted = col_number(),
+        kn_avg_speed = col_number(), kn_avg_break_x = col_number(),
+        kn_avg_break_z = col_number(), kn_avg_break = col_number(),
+        kn_range_speed = col_number(), `...69` = col_skip()), skip = 1, na = "0")
+
+Data2021 <- read_csv("2021FullPitchData.csv", 
+    col_types = cols(player_id = col_number(), 
+        year = col_number(), player_age = col_number(), 
+        p_game = col_number(), p_formatted_ip = col_number(), 
+        p_strikeout = col_number(), p_k_percent = col_number(), 
+        p_era = col_number(), n = col_number(), 
+        n_ff_formatted = col_number(), ff_avg_speed = col_number(), 
+        ff_avg_spin = col_number(), ff_avg_break_x = col_number(), 
+        ff_avg_break_z = col_number(), ff_avg_break = col_number(), 
+        ff_range_speed = col_number(), n_sl_formatted = col_number(), 
+        sl_avg_speed = col_number(), sl_avg_spin = col_number(), 
+        sl_avg_break_x = col_number(), sl_avg_break_z = col_number(), 
+        sl_avg_break = col_number(), sl_range_speed = col_number(), 
+        n_ch_formatted = col_number(), ch_avg_speed = col_number(), 
+        ch_avg_spin = col_number(), ch_avg_break_x = col_number(), 
+        ch_avg_break_z = col_number(), ch_avg_break = col_number(), 
+        ch_range_speed = col_number(), n_cukc_formatted = col_number(), 
+        cu_avg_speed = col_number(), cu_avg_spin = col_number(), 
+        cu_avg_break_x = col_number(), cu_avg_break_z = col_number(), 
+        cu_avg_break = col_number(), cu_range_speed = col_number(), 
+        n_sift_formatted = col_number(), 
+        si_avg_speed = col_number(), si_avg_spin = col_number(), 
+        si_avg_break_x = col_number(), si_avg_break_z = col_number(), 
+        si_avg_break = col_number(), si_range_speed = col_number(), 
+        n_fc_formatted = col_number(), fc_avg_speed = col_number(), 
+        fc_avg_spin = col_number(), fc_avg_break_x = col_number(),
+        fc_avg_break_z = col_number(), fc_avg_break = col_number(),
+        fc_range_speed = col_number(), n_fs_formatted = col_number(),
+        fs_avg_speed = col_number(), fs_avg_break_x = col_number(),
+        fs_avg_break_z = col_number(), fs_avg_break = col_number(),
+        fs_range_speed = col_number(), n_kn_formatted = col_number(),
+        kn_avg_speed = col_number(), kn_avg_break_x = col_number(),
+        kn_avg_break_z = col_number(), kn_avg_break = col_number(),
+        kn_range_speed = col_number(), `...69` = col_skip()), skip = 1, na = "0")
+```
+
+```{r}
+#select player level info, all variables that contain ff (fastball), want to rename variables
+#bindrows function 
+```
+
+```{r}
+FinalData <- rbind(Data2016, Data2017, Data2018, Data2019, Data2020, Data2021)
+```
+
+
+```{r}
+four_fast <- FinalData %>% 
+  select(c(1:12), contains("ff")) %>%
+  add_column(pitch_type = "FourSeam") %>% 
+  mutate(pitch_frequency = n_ff_formatted, 
+         avg_speed = ff_avg_speed,
+         avg_spin = ff_avg_spin,
+         avg_break_x = ff_avg_break_x,
+         avg_break_z = ff_avg_break_z,
+         avg_break = ff_avg_break, 
+         range_speed = ff_range_speed) %>% 
+  select(-contains("ff"))
+
+slider <- FinalData %>% 
+  select(c(1:12), contains("sl")) %>%
+  add_column(Pitch_Type = "Slider") %>%
+  mutate(pitch_frequency = n_sl_formatted, 
+         avg_speed = sl_avg_speed, 
+         avg_spin = sl_avg_spin, 
+         avg_break_x = sl_avg_break_x, 
+         avg_break_z = sl_avg_break_z, 
+         avg_break = sl_avg_break, 
+         range_speed = sl_range_speed) %>%
+  select(-contains("sl"))
+
+changeup <- FinalData %>% 
+  select(c(1:12), contains("ch")) %>%
+  add_column(Pitch_Type = "Changeup") %>%
+  mutate(pitch_frequency = n_ch_formatted, 
+         avg_speed = ch_avg_speed, 
+         avg_spin = ch_avg_spin, 
+         avg_break_x = ch_avg_break_x, 
+         avg_break_z = ch_avg_break_z, 
+         avg_break = ch_avg_break, 
+         range_speed = ch_range_speed) %>%
+  select(-c(13:19))
+
+curve <- FinalData %>% 
+  select(c(1:12), contains("cu")) %>%
+  add_column(Pitch_Type = "Curve") %>%
+  mutate(pitch_frequency = n_cukc_formatted, 
+         avg_speed = cu_avg_speed, 
+         avg_spin = cu_avg_spin, 
+         avg_break_x = cu_avg_break_x, 
+         avg_break_z = cu_avg_break_z, 
+         avg_break = cu_avg_break, 
+         range_speed = cu_range_speed) %>%
+  select(-contains("cu"))
+
+sinker <- FinalData %>%
+  select(c(1:12), contains("si")) %>%
+  add_column(Pitch_Type = "Sinker") %>%
+  mutate(pitch_frequency = n_sift_formatted, 
+         avg_speed = si_avg_speed, 
+         avg_spin = si_avg_spin, 
+         avg_break_x = si_avg_break_x, 
+         avg_break_z = si_avg_break_z, 
+         avg_break = si_avg_break, 
+         range_speed = si_range_speed) %>%
+  select(-contains("si"))
+
+cutter <- FinalData %>% 
+  select(c(1:12), contains("fc")) %>%
+  add_column(Pitch_Type = "Cutter") %>%
+  mutate(pitch_frequency = n_fc_formatted, 
+         avg_speed = fc_avg_speed, 
+         avg_spin = fc_avg_spin) %>%
+  select(-contains("fc"))
+
+knuckleball <- FinalData %>% 
+  select(c(1:12), contains("kn")) %>% 
+  add_column(Pitch_Type = "Knuckle") %>% 
+  mutate(pitch_frequency = n_kn_formatted, 
+         avg_speed = kn_avg_speed, 
+         avg_spin = kn_avg_spin, 
+         avg_break_x = kn_avg_break_x, 
+         avg_break_z = kn_avg_break_z, 
+         avg_break = kn_avg_break, 
+         range_speed = kn_range_speed) %>% 
+  select(-contains("kn"))
+
+
+  
 ```
 
