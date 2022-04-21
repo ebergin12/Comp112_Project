@@ -241,9 +241,9 @@ FinalData <- rbind(Data2016, Data2017, Data2018, Data2019, Data2020, Data2021)
 
 
 ```{r}
-four_fast <- FinalData %>% 
+four_fast <- FinalData %>% #going through and separating by pitch type, creating new saved dfs for each pitch type
   select(c(1:12), contains("ff")) %>%
-  add_column(pitch_type = "FourSeam") %>% 
+  add_column(Pitch_Type = "FourSeam") %>% 
   mutate(pitch_frequency = n_ff_formatted, 
          avg_speed = ff_avg_speed,
          avg_spin = ff_avg_spin,
@@ -321,7 +321,45 @@ knuckleball <- FinalData %>%
          range_speed = kn_range_speed) %>% 
   select(-contains("kn"))
 
+Splitter <- FinalData %>%
+  select(c(1:12), contains("fs")) %>%
+  add_column(Pitch_Type = "Splitter") %>%
+  mutate(pitch_frequency = n_fs_formatted, 
+         avg_speed = fs_avg_speed, 
+         avg_spin = fs_avg_spin, 
+         avg_break_x = fs_avg_break_x, 
+         avg_break_z = fs_avg_break_z, 
+         avg_break = fs_avg_break, 
+         range_speed = fs_range_speed) %>%
+  select(-contains("fs"))
 
-  
 ```
+
+```{r}
+#combining new pitch data into a full df 
+TidyPitchData <- bind_rows(four_fast, slider, changeup, curve, sinker, 
+                           cutter, Splitter, knuckleball)
+```
+
+```{r}
+#trying to create plot of the strike zone 
+x <- c(-.95,.95,.95,-.95,-.95)
+z <- c(1.6,1.6,3.5,3.5,1.6)
+
+strikezone <- data.frame(x,z)
+```
+
+```{r}
+TidyPitchData %>%
+  filter(last_name == "Romo", year == 2019) %>%
+  ggplot() +
+  geom_path(data = strikezone, aes(x=x, y=z)) +
+  coord_equal() +
+   geom_point(aes(x = avg_break_x,
+                  y = avg_break_z,
+                  size = avg_speed,
+                  color = Pitch_Type)) +
+  scale_size(range = c(-1.0,2.5)) 
+```
+
 
