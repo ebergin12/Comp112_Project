@@ -305,15 +305,45 @@ CutterData <- FinalData %>%
          range_speed = fc_range_speed) %>%
   select(-contains("fc"))
 
-TidyPitchData <- bind_rows(FFData, SliderData, ChangeData, CurveData, SinkerData, CutterData)
+SplitterData <- FinalData %>%
+  select(c(1:12), contains("fs")) %>%
+  add_column(Pitch_Type = "Splitter") %>%
+  mutate(pitch_frequency = n_fs_formatted, 
+         avg_speed = fs_avg_speed, 
+         avg_spin = fs_avg_spin, 
+         avg_break_x = fs_avg_break_x, 
+         avg_break_z = fs_avg_break_z, 
+         avg_break = fs_avg_break, 
+         range_speed = fs_range_speed) %>%
+  select(-contains("fs"))
+
+KnuckleData <- FinalData %>%
+  select(c(1:12), contains("kn")) %>%
+  add_column(Pitch_Type = "Knuckle") %>%
+  mutate(pitch_frequency = n_kn_formatted, 
+         avg_speed = kn_avg_speed, 
+         avg_spin = kn_avg_spin, 
+         avg_break_x = kn_avg_break_x, 
+         avg_break_z = kn_avg_break_z, 
+         avg_break = kn_avg_break, 
+         range_speed = kn_range_speed) %>%
+  select(-contains("kn"))
+
+TidyPitchData <- bind_rows(FFData, SliderData, ChangeData, CurveData, SinkerData, CutterData, SplitterData, KnuckleData)
 ```
 
 
-```{r}
+```{r, fig.width=25, fig.height=15}
+
 TidyPitchData %>%
+  filter(last_name == "Greinke", year == 2019) %>%
   ggplot(aes(x = pitch_frequency, y = Pitch_Type)) +
   geom_col() +
-  geom_text(aes(label = Pitch_Type), vjust = -0.5, size = 2, color = "black")
+  geom_text(aes(label = Pitch_Type), hjust = -0.5, size = 8, color = "black") +
+  labs(title = "Zack Greinke", 
+       x = "Pitch Frequency", 
+       y = "Pitch Type") + 
+  theme(axis.text.y = element_blank())
 ```
 
 
