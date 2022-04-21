@@ -245,5 +245,8 @@ Data2021 <- read_csv("2021FullPitchData.csv",
         kn_range_speed = col_number(), `...69` = col_skip()), skip = 1, na = "0")
 
 FinalData <- rbind(Data2016, Data2017, Data2018, Data2019, Data2020, Data2021)
+FinalData <- FinalData %>% 
+  group_by(player_id) %>% 
+  mutate(full_player_name = paste(last_name, first_name, sep = ", "))
 ```
 
