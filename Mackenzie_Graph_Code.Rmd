@@ -351,7 +351,7 @@ strikezone <- data.frame(x,z)
 
 ```{r}
 TidyPitchData %>%
-  filter(last_name == "Romo", year == 2019) %>%
+  filter(Pitch_Type == "FourSeam", year == 2019) %>%
   ggplot() +
   geom_path(data = strikezone, aes(x=x, y=z)) +
   coord_equal() +
