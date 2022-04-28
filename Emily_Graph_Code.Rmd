@@ -16,7 +16,6 @@ library(dplyr)
 library(lubridate)
 library(ggthemes)
 library(readr)
-library(geomtextpath)
 library(patchwork)
 library(colorRamps)
 ```
@@ -367,7 +366,7 @@ TidyPitchData %>%
   mutate(mph_speed = str_c(avg_speed, " mph")) %>%
   filter(last_name == "Greinke", year == 2019) %>%
   ggplot() +
-  geom_linerange(aes(y = Pitch_Type, xmin = min_speed, xmax = max_speed, color = avg_speed), size=5) + 
+  geom_linerange(aes(y = Pitch_Type, xmin = min_speed, xmax = max_speed, color = avg_speed), size=5) +
   geom_linerange(aes(y = 0, xmin = 59, xmax = 65), color = "#FFFF00", size=5) +
   geom_linerange(aes(y = 0, xmin = 65, xmax = 75), color = "#FFCC00", size=5) +
   geom_linerange(aes(y = 0, xmin = 75, xmax = 85), color = "#FF9933", size=5) +
@@ -405,7 +404,7 @@ TidyPitchData %>%
   mutate(mph_speed = str_c(avg_speed, " mph")) %>%
   filter(last_name == "Greinke", year == 2019) %>%
   ggplot() +
-  geom_linerange(aes(y = Pitch_Type, xmin = min_speed, xmax = max_speed, color = avg_speed), size=5) + 
+  geom_linerange(aes(y = Pitch_Type, xmin = min_speed, xmax = max_speed, color = avg_speed), size=5) +
   geom_linerange(aes(y = 0, xmin = 59, xmax = 65), color = "#FFFF00", size=5) +
   geom_linerange(aes(y = 0, xmin = 65, xmax = 75), color = "#FFCC00", size=5) +
   geom_linerange(aes(y = 0, xmin = 75, xmax = 85), color = "#FF9933", size=5) +
