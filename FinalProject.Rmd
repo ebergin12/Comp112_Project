@@ -15,16 +15,12 @@ knitr::opts_chunk$set(echo = TRUE, error=TRUE, message=FALSE, warning=FALSE)
 ```
 
 ```{r libraries, echo=FALSE}
-library(tidyverse)     # for data cleaning and plotting
-library(lubridate)     # for date manipulation
-library(gplots)        # for col2hex() function
-library(RColorBrewer)  # for color palettes
-library(ggthemes)      # for more themes (including theme_map())
-library(ggnewscale)
-library(readr)
-library(patchwork)
-library(colorRamps)
-theme_set(theme_minimal())
+library(tidyverse)
+library(lubridate)
+library(rsconnect)
+library(zoo)
+library(dplyr)
+library(ggthemes)
 ```
 
 
