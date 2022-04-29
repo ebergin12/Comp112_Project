@@ -360,7 +360,7 @@ TidyPitchData %>%
             color = "black",
             fontface = "bold",
             nudge_x = .5) + 
-  labs(title = "Pitch Type Frequency", 
+  labs(title = "Zack Greinke 2019 Season Pitch Frequency by Pitch Type", 
        x = "Frequency (%)", 
        y = "") + 
   scale_x_continuous(expand = expansion(mult = c(0, .65))) + 
@@ -394,7 +394,7 @@ TidyPitchData %>%
             color = "black",
             fontface = "bold",
             nudge_x = .5) +
-  labs(title = "Average Pitch Speed", 
+  labs(title = "Zack Greinke 2019 Season Average Pitch Speed by Pitch Type", 
        x = "Pitch Speed (mph)",
        y = NULL) + 
   scale_x_continuous(expand = expansion(mult = c(0, .1))) +
@@ -421,7 +421,7 @@ TidyPitchData %>%
   scale_size(guide = "none") +
   labs(shape = "Pitch Type", 
        color = "Pitch Speed (mph)",
-       title = "Average Pitch Movement",
+       title = "Zack Greinke 2019 Season Average Pitch Movement by Pitch Type",
        x = "Horizontal Break\nView from Catcher POV",
        y = "Vertical Break") + 
   scale_x_continuous(expand = expansion(mult = c(.15, .25))) +
